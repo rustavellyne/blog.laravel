@@ -1,0 +1,17 @@
+lesson 1
+1+. create laravel project by composer (documentation)
+    1.1 php artisan serve
+2+. install laravel ui --dev (docs)
+    2.1 install vue
+    2.2 add script to our main page assets func
+3+. setting route of laravel with regular expressions for api routes
+4+. install and setup VUE router
+    4.1 routes.js
+    4.2 Vue.router
+    4.3 router-view
+5+. hash from url clear, test with some another component
+6+. local registration of components
+7+. router - link
+8+. connect styles
+9+. use name in routes
+10. boostrap navbar and main container
