@@ -1,0 +1,14 @@
+1.+ Create Bookable component 
+2.+ Create BookableListItem component
+3.+ read about lifecycle hooks
+4.+ fake data in bookable component 
+    {
+        item,
+        content,
+        price,
+    }
+5.+ v-for v-if read
+6.+ create loading
+7.+ computed properties find rows from columns
+8.+ render cards of bookables with rows and col Bootstrap classes
+9.+ solve the problem of size cards when they are not full row

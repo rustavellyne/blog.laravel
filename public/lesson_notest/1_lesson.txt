@@ -14,4 +14,4 @@ lesson 1
 7+. router - link
 8+. connect styles
 9+. use name in routes
-10. boostrap navbar and main container
+10+. boostrap navbar and main container
