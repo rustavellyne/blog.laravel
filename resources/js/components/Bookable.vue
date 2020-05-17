@@ -13,7 +13,7 @@
                     v-for="bookable in getBookablesInRows(row)"
                     :key="bookable.id"
                     :class="'col-' + col"
-                    class="mb-2"
+                    class="mb-2 d-flex align-items-stretch"
                 >
                     <bookable-list-item 
                         :title="bookable.title"
@@ -54,7 +54,7 @@ export default {
             return axios.get('/api/bookables')
                         .then(response => this.setBookables(response.data))
                         .then(result => this.loading = false)
-                        .catch(error => console.log(error))
+                        
         },
         setBookables (bookables) {
             this.bookables = bookables;
@@ -70,7 +70,7 @@ export default {
         },
     },
     created () {
-        this.fetchBookables()
+        this.fetchBookables().catch(error => console.log(error))
     }
 }
 </script>

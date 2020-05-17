@@ -1966,8 +1966,6 @@ __webpack_require__.r(__webpack_exports__);
         return _this.setBookables(response.data);
       }).then(function (result) {
         return _this.loading = false;
-      })["catch"](function (error) {
-        return console.log(error);
       });
     },
     setBookables: function setBookables(bookables) {
@@ -1984,7 +1982,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    this.fetchBookables();
+    this.fetchBookables()["catch"](function (error) {
+      return console.log(error);
+    });
   }
 });
 
@@ -37575,7 +37575,7 @@ var render = function() {
                   "div",
                   {
                     key: bookable.id,
-                    staticClass: "mb-2",
+                    staticClass: "mb-2 d-flex align-items-stretch",
                     class: "col-" + _vm.col
                   },
                   [

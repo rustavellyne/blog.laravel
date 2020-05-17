@@ -10,8 +10,8 @@
 10. + create Seeder with php artisan
 11. + run database Seeder (see documentation)
 12. + php artisan migrate:refresh --seed
-13. create api get route to get all bookables
-14. create api get by id route
-15. findOrFail 404
-16. fetch data by axios
-17. fix styles of page
+13. + create api get route to get all bookables
+14. + create api get by id route
+15. + findOrFail 404
+16. + fetch data by axios
+17. + fix styles of page
