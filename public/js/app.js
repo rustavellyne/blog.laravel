@@ -1957,6 +1957,21 @@ __webpack_require__.r(__webpack_exports__);
       var to = row * col;
       var bookables = this.bookables.slice(from, to);
       return bookables;
+    },
+    fetchBookables: function fetchBookables() {
+      var _this = this;
+
+      this.loading = true;
+      return axios.get('/api/bookables').then(function (response) {
+        return _this.setBookables(response.data);
+      }).then(function (result) {
+        return _this.loading = false;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    },
+    setBookables: function setBookables(bookables) {
+      this.bookables = bookables;
     }
   },
   computed: {
@@ -1969,48 +1984,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this = this;
-
-    this.loading = true;
-    setTimeout(function () {
-      _this.bookables = [{
-        id: 1,
-        title: 'Kiev Hotel',
-        description: 'best hotel',
-        price: 1000
-      }, {
-        id: 2,
-        title: 'Sumy Hotel',
-        description: 'best hotel',
-        price: 2000
-      }, {
-        id: 3,
-        title: 'Konotop Hotel',
-        description: 'best hotel',
-        price: 3000
-      }, {
-        id: 4,
-        title: 'Konotop Hotel',
-        description: 'best hotel',
-        price: 3000
-      }, {
-        id: 5,
-        title: 'Konotop Hotel',
-        description: 'best hotel',
-        price: 3000
-      }, {
-        id: 6,
-        title: 'Konotop Hotel',
-        description: 'best hotel',
-        price: 3000
-      }, {
-        id: 7,
-        title: 'Konotop Hotel',
-        description: 'best hotel',
-        price: 3000
-      }];
-      _this.loading = false;
-    }, 2000);
+    this.fetchBookables();
   }
 });
 

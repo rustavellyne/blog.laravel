@@ -47,7 +47,17 @@ export default {
             let from = (row - 1) * col;
             let to = row * col;
             let bookables = this.bookables.slice(from, to);
-            return bookables
+            return bookables;
+        },
+        fetchBookables () {
+            this.loading = true;
+            return axios.get('/api/bookables')
+                        .then(response => this.setBookables(response.data))
+                        .then(result => this.loading = false)
+                        .catch(error => console.log(error))
+        },
+        setBookables (bookables) {
+            this.bookables = bookables;
         },
     },
     computed: {
@@ -56,59 +66,11 @@ export default {
             return length ? Math.ceil(length / this.columns) : 0;
         },
         col () {
-            return 12 / this.columns
+            return 12 / this.columns;
         },
     },
     created () {
-        this.loading = true;
-        setTimeout(() => {
-            this.bookables = [
-                {
-                    id: 1,
-                    title: 'Kiev Hotel',
-                    description: 'best hotel',
-                    price: 1000,
-                },
-                {
-                    id: 2,
-                    title: 'Sumy Hotel',
-                    description: 'best hotel',
-                    price: 2000,
-                },
-                {
-                    id: 3,
-                    title: 'Konotop Hotel',
-                    description: 'best hotel',
-                    price: 3000,
-                },
-                {
-                    id: 4,
-                    title: 'Konotop Hotel',
-                    description: 'best hotel',
-                    price: 3000,
-                },
-                {
-                    id: 5,
-                    title: 'Konotop Hotel',
-                    description: 'best hotel',
-                    price: 3000,
-                },
-                {
-                    id: 6,
-                    title: 'Konotop Hotel',
-                    description: 'best hotel',
-                    price: 3000,
-                },
-                {
-                    id: 7,
-                    title: 'Konotop Hotel',
-                    description: 'best hotel',
-                    price: 3000,
-                },
-
-            ]
-        this.loading = false;
-        }, 2000);
+        this.fetchBookables()
     }
 }
 </script>
