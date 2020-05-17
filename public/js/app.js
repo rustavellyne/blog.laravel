@@ -1936,6 +1936,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1974,37 +1976,37 @@ __webpack_require__.r(__webpack_exports__);
       _this.bookables = [{
         id: 1,
         title: 'Kiev Hotel',
-        content: 'best hotel',
+        description: 'best hotel',
         price: 1000
       }, {
         id: 2,
         title: 'Sumy Hotel',
-        content: 'best hotel',
+        description: 'best hotel',
         price: 2000
       }, {
         id: 3,
         title: 'Konotop Hotel',
-        content: 'best hotel',
+        description: 'best hotel',
         price: 3000
       }, {
         id: 4,
         title: 'Konotop Hotel',
-        content: 'best hotel',
+        description: 'best hotel',
         price: 3000
       }, {
         id: 5,
         title: 'Konotop Hotel',
-        content: 'best hotel',
+        description: 'best hotel',
         price: 3000
       }, {
         id: 6,
         title: 'Konotop Hotel',
-        content: 'best hotel',
+        description: 'best hotel',
         price: 3000
       }, {
         id: 7,
         title: 'Konotop Hotel',
-        content: 'best hotel',
+        description: 'best hotel',
         price: 3000
       }];
       _this.loading = false;
@@ -2035,7 +2037,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     title: String,
-    content: String,
+    description: String,
     price: Number
   }
 });
@@ -37606,7 +37608,7 @@ var render = function() {
                     _c("bookable-list-item", {
                       attrs: {
                         title: bookable.title,
-                        content: bookable.content,
+                        description: bookable.description,
                         price: bookable.price
                       }
                     })
@@ -37648,7 +37650,7 @@ var render = function() {
       _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.title))]),
       _vm._v(" "),
       _c("p", { staticClass: "card-text" }, [
-        _vm._v(_vm._s(_vm.content) + " " + _vm._s(_vm.price))
+        _vm._v(_vm._s(_vm.description) + " " + _vm._s(_vm.price))
       ])
     ])
   ])
