@@ -7,5 +7,5 @@
 7. + make controller by artisan
 8. + cotroller,  resourse DOCUMNETATION
 9. + apiResource(only except)
-10. make resourse artisan 
-11. wrapping resource
+10.+ make resourse artisan 
+11.+ wrapping resource
