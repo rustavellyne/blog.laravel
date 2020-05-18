@@ -16,9 +16,7 @@
                     class="mb-2 d-flex align-items-stretch"
                 >
                     <bookable-list-item 
-                        :title="bookable.title"
-                        :description="bookable.description"
-                        :price="bookable.price"
+                        v-bind="bookable"
                     ></bookable-list-item>
                 </div>
             </div>
