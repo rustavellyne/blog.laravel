@@ -4,8 +4,8 @@
 4. + add link to bookable page
 5. + create page of bookable bootstrap 4, 8-4 columns
 6. + loading think about it
-7. make controller by artisan
-8. cotroller,  resourse DOCUMNETATION
-9. apiResource(only except)
+7. + make controller by artisan
+8. + cotroller,  resourse DOCUMNETATION
+9. + apiResource(only except)
 10. make resourse artisan 
 11. wrapping resource
