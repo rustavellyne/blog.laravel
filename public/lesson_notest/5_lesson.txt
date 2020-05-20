@@ -1,1 +1,11 @@
-1.
+1. + component availability
+    1.1 + form, fields{from date, to date, submit}
+2. + import availability to bookable page
+3. + install laravel debug bar composer require barryvdh/laravel-debugbar --dev (ENV app debug true)
+4. + Booking model (with m flag)
+5. + date fields(from, to) set relation with bookbable_id, migrate table
+6. + Set relation in bookable model fith functions
+7. create model factory BookingFactory(from date, todate)
+8. Create Seeder booking wit bookable
+9. laravel collections
+10. READ again
