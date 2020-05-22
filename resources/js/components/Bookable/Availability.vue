@@ -4,13 +4,13 @@
         <div class="form-row">
            <div class="form-group col-md-6">
                 <label for="from_date">From date</label>
-                <input v-model="from_date" type="text" class="form-control form-control-sm" name="from_date" placeholder="Start date">
+                <input v-model="from" type="text" class="form-control form-control-sm" name="from_date" placeholder="Start date">
             </div>
             <div class="form-group col-md-6">
                 <label for="to_date">To date</label>
-                <input v-model="to_date" type="text" class="form-control form-control-sm" name="to_date" placeholder="End date">
+                <input v-model="to" type="text" class="form-control form-control-sm" name="to_date" placeholder="End date">
             </div>
-            <button type="submit" class="btn btn-block btn-secondary">Submit</button>
+            <button type="submit" class="btn btn-block btn-secondary" :disabled="loading">Submit</button>
         </div>
     </form>
 </template>
@@ -19,13 +19,27 @@
 export default {
     data () {
         return {
-            from_date: '',
-            to_date: '',
+            from: '',
+            to: '',
+            status: '',
+            errors: '',
+            loading: false,
         }
     },
     methods: {
         check () {
-            console.log('form date checking')
+            this.loading = false;
+            let id = this.$route.params.id;
+            axios.get(`/api/bookables/${id}/availability?from=${this.from}&to=${this.to}`)
+                 .then(response => {
+                    this.status = response.status;
+                 })
+                 .catch(error => {
+                     if(422 == error.response.status) {
+                         this.errors = error.response.data.errors;
+                     }
+                     this.status = error.response.status;
+                 }).then(()=>this.loading = false)
         }
     },
 }

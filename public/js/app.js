@@ -1928,13 +1928,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      from_date: '',
-      to_date: ''
+      from: '',
+      to: '',
+      status: '',
+      errors: '',
+      loading: false
     };
   },
   methods: {
     check: function check() {
-      console.log('form date checking');
+      var _this = this;
+
+      this.loading = false;
+      var id = this.$route.params.id;
+      axios.get("/api/bookables/".concat(id, "/availability?from=").concat(this.from, "&to=").concat(this.to)).then(function (response) {
+        _this.status = response.status;
+      })["catch"](function (error) {
+        if (422 == error.response.status) {
+          _this.errors = error.response.data.errors;
+        }
+
+        _this.status = error.response.status;
+      }).then(function () {
+        return _this.loading = false;
+      });
     }
   }
 });
@@ -38338,8 +38355,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.from_date,
-                expression: "from_date"
+                value: _vm.from,
+                expression: "from"
               }
             ],
             staticClass: "form-control form-control-sm",
@@ -38348,13 +38365,13 @@ var render = function() {
               name: "from_date",
               placeholder: "Start date"
             },
-            domProps: { value: _vm.from_date },
+            domProps: { value: _vm.from },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.from_date = $event.target.value
+                _vm.from = $event.target.value
               }
             }
           })
@@ -38368,19 +38385,19 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.to_date,
-                expression: "to_date"
+                value: _vm.to,
+                expression: "to"
               }
             ],
             staticClass: "form-control form-control-sm",
             attrs: { type: "text", name: "to_date", placeholder: "End date" },
-            domProps: { value: _vm.to_date },
+            domProps: { value: _vm.to },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.to_date = $event.target.value
+                _vm.to = $event.target.value
               }
             }
           })
@@ -38390,7 +38407,7 @@ var render = function() {
           "button",
           {
             staticClass: "btn btn-block btn-secondary",
-            attrs: { type: "submit" }
+            attrs: { type: "submit", disabled: _vm.loading }
           },
           [_vm._v("Submit")]
         )

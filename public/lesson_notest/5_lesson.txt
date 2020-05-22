@@ -9,3 +9,11 @@
 8. Create Seeder booking wit bookable
 9. laravel collections
 10. READ again
+11. single action controller create by artisan
+12. define route for it
+13. validate input data from availability form
+14. query where from and to bookings date
+15. refactor controller 
+16 response json or json 404 not found
+17. display errors from back end
+18.
