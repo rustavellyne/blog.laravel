@@ -1,14 +1,44 @@
 <template>
     <form @submit.prevent="check">
-        <h5 class="text-uppercase text-secondary font-weight-bolder">Check availability</h5>
+        <h5 class="text-uppercase text-secondary font-weight-bolder">
+            Check availability
+            <span v-if="noAvailability" class="text-danger">(NOT AVAILABLE)</span>
+            <span v-if="hasAvailability" class="text-success">(AVAILABLE)</span>
+        </h5>
         <div class="form-row">
            <div class="form-group col-md-6">
                 <label for="from_date">From date</label>
-                <input v-model="from" type="text" class="form-control form-control-sm" name="from_date" placeholder="Start date">
+                <input 
+                    v-model="from" 
+                    @keyup.enter="check" 
+                    :class="[{'is-invalid': this.errorFor('from')}]"
+                    type="text" 
+                    class="form-control form-control-sm" 
+                    name="from_date" 
+                    placeholder="Start date"
+                />
+                <div 
+                    v-for="(error, index) in this.errorFor('from')"
+                    :key="'from' + index"
+                    class="invalid-feedback"
+                >{{error}}</div>
             </div>
             <div class="form-group col-md-6">
                 <label for="to_date">To date</label>
-                <input v-model="to" type="text" class="form-control form-control-sm" name="to_date" placeholder="End date">
+                <input 
+                    v-model="to" 
+                    @keyup.enter="check" 
+                    :class="[{'is-invalid': this.errorFor('to')}]"
+                    type="text" 
+                    class="form-control form-control-sm" 
+                    name="to_date" 
+                    placeholder="End date" 
+                />
+                <div 
+                    v-for="(error, index) in this.errorFor('to')"
+                    :key="'from' + index"
+                    class="invalid-feedback"
+                >{{error}}</div>
             </div>
             <button type="submit" class="btn btn-block btn-secondary" :disabled="loading">Submit</button>
         </div>
@@ -40,7 +70,21 @@ export default {
                      }
                      this.status = error.response.status;
                  }).then(()=>this.loading = false)
-        }
+        },
+        errorFor(field) {
+            return this.hasErrors && this.errors[field] ? this.errors[field] : null;
+        },
+    },
+    computed: {
+        hasErrors () {
+            return 422 == this.status && this.errors != null;
+        },
+        hasAvailability () {
+            return 200 == this.status;
+        },
+        noAvailability () {
+            return 404 == this.status;
+        },
     },
 }
 </script>
@@ -50,5 +94,12 @@ export default {
         font-size: 0.7rem;
         text-transform: uppercase;
         color: grey;
+    }
+    .is-invalid {
+        border-color: #b22222;
+        background-image: none;
+    }
+    .invalid-feedback {
+        color: #b22222;
     }
 </style>
