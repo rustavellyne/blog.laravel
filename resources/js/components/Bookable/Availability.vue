@@ -34,11 +34,7 @@
                     name="to_date" 
                     placeholder="End date" 
                 />
-                <div 
-                    v-for="(error, index) in this.errorFor('to')"
-                    :key="'from' + index"
-                    class="invalid-feedback"
-                >{{error}}</div>
+                <v-errors :errors="errorFor('to')"></v-errors>
             </div>
             <button type="submit" class="btn btn-block btn-secondary" :disabled="loading">Submit</button>
         </div>
@@ -46,6 +42,7 @@
 </template>
 
 <script>
+import { is422 } from './../shared/utils/response';
 export default {
     props: {
         bookableId: String,
@@ -67,7 +64,7 @@ export default {
                     this.status = response.status;
                  })
                  .catch(error => {
-                     if(422 == error.response.status) {
+                     if(is422(error)) {
                          this.errors = error.response.data.errors;
                      }
                      this.status = error.response.status;
