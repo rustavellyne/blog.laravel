@@ -1,8 +1,6 @@
 <template>
     <div>
-        <div class="row" v-if="error">
-            Unknown error please try again later
-        </div>
+        <fatal-error v-if="error"></fatal-error>
         <div class="row" v-else>
             <div :class="[{'col-md-4': twoColumns}, {'d-none': oneColumn}]">
                 <div class="card">
@@ -10,7 +8,7 @@
                         <div v-if="loading">
                             Loading...
                         </div>
-                        <div v-else>
+                        <div v-if="hasBooking">
                             <p>
                                 Stayed at 
                                 <router-link :to="{name: 'bookable', params: {id: booking.bookable.bookable_id}}">
