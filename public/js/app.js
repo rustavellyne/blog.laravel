@@ -2355,6 +2355,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -61131,7 +61133,11 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm.success ? _c("success") : _vm._e(),
+      _vm.success
+        ? _c("success", [
+            _vm._v("\n        Thank you for your reviews =)\n    ")
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _vm.error ? _c("fatal-error") : _vm._e(),
       _vm._v(" "),
@@ -61446,24 +61452,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "text-center success" }, [
-        _c("i", { staticClass: "far fa-thumbs-up" }),
-        _vm._v(" "),
-        _c("h1", { staticClass: "mt-4" }, [_vm._v("Success")]),
-        _vm._v(" "),
-        _c("h2", [_vm._v("The Operation was successfull")])
-      ])
+  return _c("div", [
+    _c("div", { staticClass: "text-center success" }, [
+      _c("i", { staticClass: "far fa-thumbs-up" }),
+      _vm._v(" "),
+      _c("h1", { staticClass: "mt-4" }, [_vm._v("Success")]),
+      _vm._v(" "),
+      _c("h2", [_vm._t("default")], 2)
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

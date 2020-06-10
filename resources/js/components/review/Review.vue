@@ -1,6 +1,8 @@
 <template>
     <div>
-        <success v-if="success"></success>
+        <success v-if="success">
+            Thank you for your reviews =)
+        </success>
         <fatal-error v-if="error"></fatal-error>
         <div class="row" v-if="!success && !error">
             <div :class="[{'col-md-4': twoColumns}, {'d-none': oneColumn}]">
