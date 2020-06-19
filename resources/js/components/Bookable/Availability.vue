@@ -2,8 +2,10 @@
     <form @submit.prevent="check">
         <h5 class="text-uppercase text-secondary font-weight-bolder">
             Check availability
-            <span v-if="noAvailability" class="text-danger">(NOT AVAILABLE)</span>
-            <span v-if="hasAvailability" class="text-success">(AVAILABLE)</span>
+            <transition name="fade">
+                <span v-if="noAvailability" class="text-danger">(NOT AVAILABLE)</span>
+                <span v-if="hasAvailability" class="text-success">(AVAILABLE)</span>
+            </transition>
         </h5>
         <div class="form-row">
            <div class="form-group col-md-6">
@@ -36,7 +38,13 @@
                 />
                 <v-errors :errors="errorFor('to')"></v-errors>
             </div>
-            <button type="submit" class="btn btn-block btn-secondary" :disabled="loading">Submit</button>
+            <button type="submit" class="btn btn-block btn-secondary" :disabled="loading">
+                <span v-if="!loading">Submit</span>
+                <span v-if="loading">
+                    <i class="fas fa-spinner fa-pulse"></i>
+                    Checking...
+                </span>
+            </button>
         </div>
     </form>
 </template>
@@ -61,9 +69,8 @@ export default {
     },
     methods: {
         
-
         check () {
-            this.loading = false;
+            this.loading = true;
             this.errors = null;
 
             this.$store.dispatch('setLastSearch', {
