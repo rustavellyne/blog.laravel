@@ -28,13 +28,11 @@ class Bookable extends Model
         $days = (new Carbon($from))->diffInDays(new Carbon($to)) + 1;
         $price = $days * $this->price;
 
-        return [
-            'data' => [
-                'total' => $price,
-                'breakdown' => [
-                    $this->price => $days,
-                ],
+        return  [
+            'total' => $price,
+            'breakdown' => [
+                $this->price => $days,
             ],
-        ]
+        ];
     }
 }

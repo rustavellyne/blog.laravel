@@ -17006,7 +17006,7 @@ a.text-dark:focus {
 
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 4s;
+  transition: opacity 2s;
 }
 
 .v-enter,
