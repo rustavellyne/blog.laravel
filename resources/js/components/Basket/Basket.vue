@@ -1,45 +1,76 @@
 <template>
     <div>
-        <div class="row">
+        <success v-if="success">
+            Congratulations on your purchase!
+        </success>
+        <div v-else class="row">
             <div v-if="itemsInBasket" class="col-md-8">
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="first_name">First name</label>
-                        <input v-model="customer.first_name" name="first_name" type="text" class="form-control" />
+                        <input 
+                            v-model="customer.first_name" 
+                            name="first_name" 
+                            type="text" 
+                            class="form-control" 
+                            :class="[{'is-invalid': errorFor('customer.first_name')}]" 
+                        />
+                        <v-errors :errors="errorFor('customer.first_name')"></v-errors>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="last_name">Last name</label>
-                        <input v-model="customer.last_name" name="last_name" type="text" class="form-control" />
+                        <input v-model="customer.last_name" name="last_name" type="text" class="form-control" 
+                            :class="[{'is-invalid': errorFor('customer.last_name')}]" 
+                        />
+                        <v-errors :errors="errorFor('customer.last_name')"></v-errors>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <label for="email">Email</label>
-                        <input v-model="customer.email" name="email" type="email" class="form-control" />
+                        <input v-model="customer.email" name="email" type="email" class="form-control" 
+                            :class="[{'is-invalid': errorFor('customer.email')}]" 
+                        />
+                        <v-errors :errors="errorFor('customer.email')"></v-errors>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="city">City</label>
-                        <input v-model="customer.city" name="city" type="text" class="form-control" />
+                        <input v-model="customer.city" name="city" type="text" class="form-control" 
+                            :class="[{'is-invalid': errorFor('customer.city')}]" 
+                        />
+                        <v-errors :errors="errorFor('customer.city')"></v-errors>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="street">Street</label>
-                        <input v-model="customer.street" name="street" type="text" class="form-control" />
+                        <input v-model="customer.street" name="street" type="text" class="form-control" 
+                            :class="[{'is-invalid': errorFor('customer.street')}]" 
+                        />
+                        <v-errors :errors="errorFor('customer.street')"></v-errors>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="country">Country</label>
-                        <input v-model="customer.country" name="country" type="text" class="form-control" />
+                        <input v-model="customer.country" name="country" type="text" class="form-control" 
+                            :class="[{'is-invalid': errorFor('customer.country')}]"
+                        />
+                        <v-errors :errors="errorFor('customer.country')"></v-errors>
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="state">State</label>
-                        <input v-model="customer.state" name="state" type="text" class="form-control" />
+                        <input v-model="customer.state" name="state" type="text" class="form-control" 
+                            :class="[{'is-invalid': errorFor('customer.state')}]"
+                        />
+                        <v-errors :errors="errorFor('customer.state')"></v-errors>
                     </div>
                     <div class="col-md-2 form-group">
                         <label for="zip">Zip</label>
-                        <input v-model="customer.zip" name="zip" type="text" class="form-control" />
+                        <input v-model="customer.zip" name="zip" type="text" class="form-control" 
+                            :class="[{'is-invalid': errorFor('customer.zip')}]"
+                        />
+                        <v-errors :errors="errorFor('customer.zip')"></v-errors>
                     </div>
                 </div>
                 <hr />
@@ -48,7 +79,9 @@
                         <button 
                             type="submit" 
                             class="btn btn-large btn-primary btn-block"
-                            @click.prevent="book">
+                            @click.prevent="book"
+                            :disabled="loading"
+                        >
                             Book now!
                         </button>
                     </div>
@@ -110,10 +143,11 @@ import { mapState, mapGetters } from 'vuex';
 import validationErrors from './../shared/mixins/validationErrors';
 
 export default {
-    mixins: [validationErrors],
+    mixins: [validationErrors, ],
     data () {
         return {
             loading: false,
+            bookingAttempted: false,
             customer: {
                 first_name: null,
                 last_name: null,
@@ -129,6 +163,8 @@ export default {
     methods: {
         async book() {
             this.loading = true;
+            this.errors = null;
+            this.bookingAttempted = false;
             try {
                 await axios.post(`/api/checkout`, {
                     customer: this.customer,
@@ -140,16 +176,20 @@ export default {
                 })
                 this.$store.dispatch('clearBasket');
             } catch (error) {
-                console.log(error)
-                this.loading = false;
+                this.errors = error.response && error.response.data.errors;
             }
+            this.loading = false;
+            this.bookingAttempted = true;
         },
     },
     computed: {
         ...mapGetters(['itemsInBasket']),
         ...mapState({
             basket: state => state.basket.items
-        })
+        }),
+        success () {
+            return !this.loading && this.itemsInBasket == 0 && this.bookingAttempted
+        },
     },
 }
 </script>
